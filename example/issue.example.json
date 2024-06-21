@@ -1,0 +1,74 @@
+[
+    {
+      'url': 'https: //api.github.com/repos/ruby-docx/docx/issues/151',
+      'repository_url': 'https://api.github.com/repos/ruby-docx/docx',
+      'labels_url': 'https://api.github.com/repos/ruby-docx/docx/issues/151/labels{/name}',
+      'comments_url': 'https://api.github.com/repos/ruby-docx/docx/issues/151/comments',
+      'events_url': 'https://api.github.com/repos/ruby-docx/docx/issues/151/events',
+      'html_url': 'https://github.com/ruby-docx/docx/issues/151',
+      'id': 2197502827,
+      'node_id': 'I_kwDOAD0JJs6C-ztr',
+      'number': 151,
+      'title': 'How can we add a new paragraph',
+      'user': {
+        'login': 'suleman-jalil-devboxtech',
+        'id': 160232727,
+        'node_id': 'U_kgDOCYz1Fw',
+        'avatar_url': 'https://avatars.githubusercontent.com/u/160232727?v=4',
+        'gravatar_id': '',
+        'url': 'https://api.github.com/users/suleman-jalil-devboxtech',
+        'html_url': 'https://github.com/suleman-jalil-devboxtech',
+        'followers_url': 'https://api.github.com/users/suleman-jalil-devboxtech/followers',
+        'following_url': 'https://api.github.com/users/suleman-jalil-devboxtech/following{/other_user}',
+        'gists_url': 'https://api.github.com/users/suleman-jalil-devboxtech/gists{/gist_id}',
+        'starred_url': 'https://api.github.com/users/suleman-jalil-devboxtech/starred{/owner}{/repo}',
+        'subscriptions_url': 'https://api.github.com/users/suleman-jalil-devboxtech/subscriptions',
+        'organizations_url': 'https://api.github.com/users/suleman-jalil-devboxtech/orgs',
+        'repos_url': 'https://api.github.com/users/suleman-jalil-devboxtech/repos',
+        'events_url': 'https://api.github.com/users/suleman-jalil-devboxtech/events{/privacy}',
+        'received_events_url': 'https://api.github.com/users/suleman-jalil-devboxtech/received_events',
+        'type': 'User',
+        'site_admin': False
+      },
+      'labels': [
+        {
+          'id': 3031843,
+          'node_id': 'MDU6TGFiZWwzMDMxODQz',
+          'url': 'https://api.github.com/repos/ruby-docx/docx/labels/enhancement',
+          'name': 'enhancement',
+          'color': '84b6eb',
+          'default': True,
+          'description': None
+        }
+      ],
+      'state': 'open',
+      'locked': False,
+      'assignee': None,
+      'assignees': [
+        
+      ],
+      'milestone': None,
+      'comments': 0,
+      'created_at': '2024-03-20T13:11:04Z',
+      'updated_at': '2024-03-20T13:11:04Z',
+      'closed_at': None,
+      'author_association': 'NONE',
+      'active_lock_reason': None,
+      'body': '## Problem\r\nI need to add  paragraph. In documentation i see we can remove the paragraph.\r\n\r\n`# Remove paragraphs\r\ndoc.paragraphs.each do |p|\r\n  p.remove! if p.to_s =~ /TODO/\r\nend`\r\n\r\n',
+      'reactions': {
+        'url': 'https://api.github.com/repos/ruby-docx/docx/issues/151/reactions',
+        'total_count': 0,
+        '+1': 0,
+        '-1': 0,
+        'laugh': 0,
+        'hooray': 0,
+        'confused': 0,
+        'heart': 0,
+        'rocket': 0,
+        'eyes': 0
+      },
+      'timeline_url': 'https://api.github.com/repos/ruby-docx/docx/issues/151/timeline',
+      'performed_via_github_app': None,
+      'state_reason': None
+    }
+]

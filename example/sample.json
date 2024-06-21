@@ -1,0 +1,6 @@
+{'ID': 2197502827, '主题': 'How can we add a new paragraph', '来源': 'Github Issue', '元数据': {'发帖时间': '20240320 13: 11: 04', '回复数': 1, '扩展字段': "{'url': 'https://github.com/ruby-docx/docx/issues/151'}"
+    }, '回复': [
+        {'楼ID': 1, '回复': '## Problem\r\nI need to add  paragraph. In documentation i see we can remove the paragraph.\r\n\r\n`# Remove paragraphs\r\ndoc.paragraphs.each do |p|\r\n  p.remove! if p.to_s =~ /TODO/\r\nend`\r\n\r\n', '扩展字段': "{'回复人': 'suleman-jalil-devboxtech', '回复时间': '20240320 13:11:04'}"
+        }
+    ]
+}
