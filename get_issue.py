@@ -5,14 +5,14 @@ import traceback
 
 import requests
 from datetime import datetime
-from utils import find_fastest_ip
+# from utils import find_fastest_ip
 from urllib.parse import urlparse
 import sys
 
-TARGET_PATH = 'output'  # 目的路径
-TMP_PATH = 'tmp'  # 存放爬取记录
-
-MAX_FILE_SIZE = 500 * 1024 * 1024
+BASE_DIR = os.path.dirname(os.path.abspath(sys.argv[0]))
+TARGET_PATH = TARGET_PATH = os.path.join(BASE_DIR, 'output')  # 目的路径
+TMP_PATH = os.path.join(BASE_DIR, 'tmp')  # 存放爬取记录
+MAX_FILE_SIZE =  500 * 1024 * 1024
 
 
 def get_jsonl_filenames(SOURCE_PATH):
@@ -58,35 +58,35 @@ def get(url, params=None,ips=[]):
         try:
             host = urlparse(url).hostname
             headers['host'] = host
-            current_ip=None
-            for ip in ips:
-                if 'limit_time' not in ip:
-                    ip['limit_time']=0
-                if ip['limit_time'] < current_timestamp and ip['is_connected']:
-                    current_ip=ip
-            if current_ip:
-                url = url.replace(host, current_ip['ip'], 1)
-            elif not current_ip: #没有可用ip，等1分钟
-                print("没有可用ip，等待一分钟")
-                time.sleep(60)
-                continue
-
+            # current_ip=None
+            # for ip in ips:
+            #     if 'limit_time' not in ip:
+            #         ip['limit_time']=0
+            #     if ip['limit_time'] < current_timestamp and ip['is_connected']:
+            #         current_ip=ip
+            # if current_ip:
+            #     url = url.replace(host, current_ip['ip'], 1)
+            # elif not current_ip: #没有可用ip，等1分钟
+            #     print("没有可用ip，等待一分钟")
+            #     time.sleep(60)
+            #     continue
             response = requests.get(url, headers=headers, params=params, stream=True, verify=False, timeout=5 * 60)
             limit = response.headers.get("X-RateLimit-Limit")
             remaining = response.headers.get("X-RateLimit-Remaining")
             reset = response.headers.get("X-RateLimit-Reset")
-            if current_ip:
-                print(limit,remaining,reset)
-                current_ip['limit_time']=int(reset)
+            if not (limit and remaining and reset):
+                continue
+            # if current_ip:
+            #     print(limit,remaining,reset)
+            #     current_ip['limit_time']=int(reset)
             current_timestamp = int(time.time())
             time_diff = int(reset) - current_timestamp
             if response.status_code == 200:
-
                 data = response.json()
             else:
                 data = []
             if int(remaining) <= 20:
-                print('sleeping', time_diff,current_ip)
+                print('sleeping', time_diff)
             return data
         except Exception as e:
             traceback.print_exc()
@@ -124,7 +124,7 @@ def add_comments(metadata, issues):
         issue['comments_data'] = []
         if issue['comments']:
             comments_url = issue['comments_url']
-            comments_data = get(comments_url)
+            comments_data = get(comments_url,ips=[])
             if comments_data:
                 issue['comments_data'].extend(comments_data)
         comment_dict["ID"] = issue["id"]
@@ -207,14 +207,17 @@ if __name__ == '__main__':
     # parser.add_argument('-p', '--path', help='meta jsonl path', required=False)
     # parser.add_argument('-t', '--token', help='github token like github_pat_*', required=True)
     #
-
-    SOURCE_PATH = "repos_list.txt"
-    with open('token.txt', 'r') as f:
+    
+    # SOURCE_PATH = "repos_list.txt"
+    token_path = os.path.join(BASE_DIR, 'token.txt')
+    SOURCE_PATH = os.path.join(BASE_DIR, 'repos_list1.txt')
+    with open(token_path, 'r') as f:
+        print("main")
         github_token = f.read()
     headers = {"Authorization": f"token {github_token}","X-GitHub-Api-Version": "2022-11-28"}
-    print("Finding Fasting IPs")
-    ips = find_fastest_ip()
-    print(f"Found fastest IPs is .",ips)
+    # print("Finding Fasting IPs")
+    # ips = find_fastest_ip()
+    # print(f"Found fastest IPs is .",ips)
 
     if not os.path.exists(TARGET_PATH):
         os.makedirs(TARGET_PATH)
@@ -229,7 +232,7 @@ if __name__ == '__main__':
                 pass
     for metadata in get_data_from_file(SOURCE_PATH):
         try:
-            has_data=get_issues(metadata, record,ips)
+            has_data=get_issues(metadata, record,[])
             record[metadata['id']] = {'get_time': time.time()}
             if has_data:
                 with open(record_file, 'w') as f:
